@@ -7,6 +7,11 @@ const {
   deleteGameById,
   updateGameById,
 } = require("../queries/games");
+const {
+  checkRelease_Year,
+  checkPrice,
+  checkArt,
+} = require("../validations/checkGames");
 
 router.get("/", async (req, res) => {
   const allGames = await getAllGames();
@@ -28,7 +33,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", checkRelease_Year, checkArt, checkPrice, async (req, res) => {
   try {
     const game = await createGame(req.body);
     res.json(game);
@@ -47,14 +52,20 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const updatedGame = await updateGameById(id, req.body);
-  if (updatedGame.length === 0) {
-    res.status(404).json({ error: "Game not found" });
-  } else {
-    res.json(updatedGame[0]);
+router.put(
+  "/:id",
+  checkRelease_Year,
+  checkArt,
+  checkPrice,
+  async (req, res) => {
+    const { id } = req.params;
+    const updatedGame = await updateGameById(id, req.body);
+    if (updatedGame.length === 0) {
+      res.status(404).json({ error: "Game not found" });
+    } else {
+      res.json(updatedGame[0]);
+    }
   }
-});
+);
 
 module.exports = router;
