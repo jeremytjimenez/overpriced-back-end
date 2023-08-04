@@ -71,14 +71,14 @@ const updateGameById = async (id, data) => {
     const updatedGame = await db.one(
       "UPDATE games SET name = $1, release_year = $2, developer = $3, original_price = $4, market_price = $5, genre = $6, is_multiplayer = $7, art = $8 WHERE id = $9 RETURNING *",
       [
-        combinedBookmark.name,
-        combinedBookmark.release_year,
-        combinedBookmark.developer,
-        combinedBookmark.original_price,
-        combinedBookmark.market_price,
-        combinedBookmark.genre,
-        combinedBookmark.is_multiplayer,
-        combinedBookmark.art,
+        combinedGame.name,
+        combinedGame.release_year,
+        combinedGame.developer,
+        combinedGame.original_price,
+        combinedGame.market_price,
+        combinedGame.genre,
+        combinedGame.is_multiplayer,
+        combinedGame.art,
         id,
       ]
     );
