@@ -8,7 +8,7 @@ const checkRelease_Year = (req, res, next) => {
 
 const checkPrice = (req, res, next) => {
     if (!typeof req.body.price !== "number") 
-        res.status(400).json({rerror:"Invalid price."})
+        res.status(400).json({error:"Invalid price."})
     else 
       next();
 
