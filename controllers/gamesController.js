@@ -33,7 +33,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", checkRelease_Year, checkArt, checkPrice, async (req, res) => {
+router.post("/", checkRelease_Year, checkPrice, checkArt, async (req, res) => {
   try {
     const game = await createGame(req.body);
     res.json(game);
